@@ -6,6 +6,8 @@ UP = 90
 DOWN = 270
 LEFT = 180
 RIGHT = 0
+SHAPE_OF_TURTLE = "square"
+COLOR_OF_TURTLE = "white"
 
 
 class Snake:
@@ -19,11 +21,19 @@ class Snake:
         """Creates 3 starting square segments which
         represent the snake"""
         for position in STARTING_POSITIONS:
-            new_segment = Turtle("square")
-            new_segment.color("white")
-            new_segment.penup()
-            new_segment.goto(position)
-            self.segments.append(new_segment)
+            self.add_segment(position)
+
+    def add_segment(self, position):
+        """Creating a new segment (Turtle object) and appending it to the segments list."""
+        new_segment = Turtle(SHAPE_OF_TURTLE)
+        new_segment.color(COLOR_OF_TURTLE)
+        new_segment.penup()
+        new_segment.goto(position)
+        self.segments.append(new_segment)
+
+    def extend(self):
+        """Extending the snake for one segment."""
+        self.add_segment(self.segments[-1].position())
 
     def move(self):
         """Moves the snake segments forward by 20 paces.
