@@ -36,8 +36,20 @@ PIXEL_CREATION_ENDPOINT = f"{PIXELA_ENDPOINT}/{USERNAME}/graphs/{GRAPH_ID}"
 
 pixel_data = {
     "date": datetime.now().strftime("%Y%m%d"),
-    "quantity": "1.57",
+    "quantity": input("How many kilometers did you cycle today? "),
 }
 
-response = requests.post(url=PIXEL_CREATION_ENDPOINT, json=pixel_data, headers=headers)
+# response = requests.post(url=PIXEL_CREATION_ENDPOINT, json=pixel_data, headers=headers)
+# print(response.text)
+
+PIXEL_UPDATE_ENDPOINT = f"{PIXELA_ENDPOINT}/{USERNAME}/graphs/{GRAPH_ID}/20240103"
+pixel_update_data = {
+    "quantity": "3.65",
+}
+
+# response = requests.put(url=PIXEL_UPDATE_ENDPOINT, json=pixel_update_data, headers=headers)
+# print(response.text)
+
+PIXEL_DELETE_ENDPOINT = f"{PIXELA_ENDPOINT}/{USERNAME}/graphs/{GRAPH_ID}/20240103"
+response = requests.delete(url=PIXEL_DELETE_ENDPOINT, headers=headers)
 print(response.text)
