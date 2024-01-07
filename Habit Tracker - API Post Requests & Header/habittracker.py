@@ -1,8 +1,10 @@
 import requests, os
+from datetime import datetime
 
 PIXELA_ENDPOINT = "https://pixe.la/v1/users"
 USERNAME = os.getenv("USERNAME")
 TOKEN = os.getenv("PIXELA_TOKEN")
+GRAPH_ID = "graph1"
 
 user_params = {
     "token": TOKEN,
@@ -16,7 +18,7 @@ user_params = {
 
 GRAPH_ENDPOINT = f"{PIXELA_ENDPOINT}/{USERNAME}/graphs"
 graph_config = {
-    "id": "graph1",
+    "id": GRAPH_ID,
     "name": "Cycling graph",
     "unit": "Km",
     "type": "float",
@@ -27,5 +29,15 @@ headers = {
     "X-USER-TOKEN": TOKEN,
 }
 
-response = requests.post(url=GRAPH_ENDPOINT, json=graph_config, headers=headers)
+# response = requests.post(url=GRAPH_ENDPOINT, json=graph_config, headers=headers)
+# print(response.text)
+
+PIXEL_CREATION_ENDPOINT = f"{PIXELA_ENDPOINT}/{USERNAME}/graphs/{GRAPH_ID}"
+
+pixel_data = {
+    "date": datetime.now().strftime("%Y%m%d"),
+    "quantity": "1.57",
+}
+
+response = requests.post(url=PIXEL_CREATION_ENDPOINT, json=pixel_data, headers=headers)
 print(response.text)
